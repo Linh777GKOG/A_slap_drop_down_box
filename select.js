@@ -62,4 +62,13 @@ export default class Select {
     select.optionsCustomElement.append(optionElement)
   })
   select.customElement.append(select.optionsCustomElement)
+
+  select.labelElement.addEventListener("click", () => {
+    select.optionsCustomElement.classList.toggle("show")
+  })
+
+  select.customElement.addEventListener("blur", () => {
+    select.optionsCustomElement.classList.remove("show")
+  })
+
 }
