@@ -39,80 +39,89 @@ export default class Select {
     newCustomElement.classList.add('selected');
     newCustomElement.scrollIntoView({ block: 'nearest' });
   }
+}
 
-  function setupCustomElement(select) {
-  select.customElement.classList.add("custom-select-container")
-  select.customElement.tabIndex = 0
+function setupCustomElement(select) {
+  select.customElement.classList.add('custom-select-container');
+  select.customElement.tabIndex = 0;
 
-  select.labelElement.classList.add("custom-select-value")
-  select.labelElement.innerText = select.selectedOption.label
-  select.customElement.append(select.labelElement)
+  select.labelElement.classList.add('custom-select-value');
+  select.labelElement.innerText = select.selectedOption.label;
+  select.customElement.append(select.labelElement);
 
-  select.optionsCustomElement.classList.add("custom-select-options")
-  select.options.forEach(option => {
-    const optionElement = document.createElement("li")
-    optionElement.classList.add("custom-select-option")
-    optionElement.classList.toggle("selected", option.selected)
-    optionElement.innerText = option.label
-    optionElement.dataset.value = option.value
-    optionElement.addEventListener("click", () => {
-      select.selectValue(option.value)
-      select.optionsCustomElement.classList.remove("show")
-    })
-    select.optionsCustomElement.append(optionElement)
-  })
-  select.customElement.append(select.optionsCustomElement)
+  select.optionsCustomElement.classList.add('custom-select-options');
+  select.options.forEach((option) => {
+    const optionElement = document.createElement('li');
+    optionElement.classList.add('custom-select-option');
+    optionElement.classList.toggle('selected', option.selected);
+    optionElement.innerText = option.label;
+    optionElement.dataset.value = option.value;
+    optionElement.addEventListener('click', () => {
+      select.selectValue(option.value);
+      select.optionsCustomElement.classList.remove('show');
+    });
+    select.optionsCustomElement.append(optionElement);
+  });
+  select.customElement.append(select.optionsCustomElement);
 
-  select.labelElement.addEventListener("click", () => {
-    select.optionsCustomElement.classList.toggle("show")
-  })
+  select.labelElement.addEventListener('click', () => {
+    select.optionsCustomElement.classList.toggle('show');
+  });
 
-  select.customElement.addEventListener("blur", () => {
-    select.optionsCustomElement.classList.remove("show")
-  })
+  select.customElement.addEventListener('blur', () => {
+    select.optionsCustomElement.classList.remove('show');
+  });
 
-  
-  let debounceTimeout
-  let searchTerm = ""
-  select.customElement.addEventListener("keydown", e => {
+  let debounceTimeout;
+  let searchTerm = '';
+  select.customElement.addEventListener('keydown', (e) => {
     switch (e.code) {
-      case "Space":
-        select.optionsCustomElement.classList.toggle("show")
-        break
-      case "ArrowUp": {
-        const prevOption = select.options[select.selectedOptionIndex - 1]
+      case 'Space':
+        select.optionsCustomElement.classList.toggle('show');
+        break;
+      case 'ArrowUp': {
+        const prevOption = select.options[select.selectedOptionIndex - 1];
         if (prevOption) {
-          select.selectValue(prevOption.value)
+          select.selectValue(prevOption.value);
         }
-        break
+        break;
       }
-      case "ArrowDown": {
-        const nextOption = select.options[select.selectedOptionIndex + 1]
+      case 'ArrowDown': {
+        const nextOption = select.options[select.selectedOptionIndex + 1];
         if (nextOption) {
-          select.selectValue(nextOption.value)
+          select.selectValue(nextOption.value);
         }
-        break
+        break;
       }
-      case "Enter":
-      case "Escape":
-        select.optionsCustomElement.classList.remove("show")
-        break
+      case 'Enter':
+      case 'Escape':
+        select.optionsCustomElement.classList.remove('show');
+        break;
       default: {
-        clearTimeout(debounceTimeout)
-        searchTerm += e.key
+        clearTimeout(debounceTimeout);
+        searchTerm += e.key;
         debounceTimeout = setTimeout(() => {
-          searchTerm = ""
-        }, 500)
+          searchTerm = '';
+        }, 500);
 
-        
-        const searchedOption = select.options.find(option => {
-          return option.label.toLowerCase().startsWith(searchTerm)
-        })
+        const searchedOption = select.options.find((option) => {
+          return option.label.toLowerCase().startsWith(searchTerm);
+        });
         if (searchedOption) {
-          select.selectValue(searchedOption.value)
+          select.selectValue(searchedOption.value);
         }
       }
     }
-  })
+  });
 }
+
+function getFormattedOptions(optionElements) {
+  return [...optionElements].map((optionElement) => {
+    return {
+      value: optionElement.value,
+      label: optionElement.label,
+      selected: optionElement.selected,
+      element: optionElement,
+    };
+  });
 }
