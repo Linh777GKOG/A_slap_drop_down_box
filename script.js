@@ -1,5 +1,7 @@
-import Select from './select';
+import Select from './select.js';
 
-const select = new Select(selectElement);
+const selectElements = document.querySelectorAll('[data-custom]');
 
-select.setValue('NE');
+selectElements.forEach((selectElement) => {
+  new Select(selectElement);
+});
