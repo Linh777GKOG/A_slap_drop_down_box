@@ -48,4 +48,18 @@ export default class Select {
   select.labelElement.innerText = select.selectedOption.label
   select.customElement.append(select.labelElement)
 
+  select.optionsCustomElement.classList.add("custom-select-options")
+  select.options.forEach(option => {
+    const optionElement = document.createElement("li")
+    optionElement.classList.add("custom-select-option")
+    optionElement.classList.toggle("selected", option.selected)
+    optionElement.innerText = option.label
+    optionElement.dataset.value = option.value
+    optionElement.addEventListener("click", () => {
+      select.selectValue(option.value)
+      select.optionsCustomElement.classList.remove("show")
+    })
+    select.optionsCustomElement.append(optionElement)
+  })
+  select.customElement.append(select.optionsCustomElement)
 }
