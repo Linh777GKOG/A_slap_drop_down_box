@@ -103,4 +103,16 @@ export default class Select {
         debounceTimeout = setTimeout(() => {
           searchTerm = ""
         }, 500)
+
+        
+        const searchedOption = select.options.find(option => {
+          return option.label.toLowerCase().startsWith(searchTerm)
+        })
+        if (searchedOption) {
+          select.selectValue(searchedOption.value)
+        }
+      }
+    }
+  })
+}
 }
