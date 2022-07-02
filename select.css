@@ -20,3 +20,29 @@
   cursor: pointer;
   user-select: none;
 }
+
+.custom-select-container:focus > .custom-select-value {
+  border-width: 2px;
+  outline: none;
+}
+
+.custom-select-value::after {
+  content: '';
+  display: inline-block;
+  border: 4px solid transparent;
+  border-top-color: black;
+  margin-left: 12px;
+  margin-top: 4px;
+}
+
+.custom-select-options {
+  display: none;
+  position: absolute;
+  padding: 0;
+  margin: 0;
+  border: 2px solid black;
+  width: 100%;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+}
