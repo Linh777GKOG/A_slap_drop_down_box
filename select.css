@@ -46,3 +46,16 @@
   max-height: 200px;
   overflow-y: auto;
 }
+
+.custom-select-options.show {
+  display: block;
+}
+
+.custom-select-option {
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+
+.custom-select-option:hover {
+  background-color: hsl(200, 100%, 70%);
+}
