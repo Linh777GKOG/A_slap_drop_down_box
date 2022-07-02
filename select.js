@@ -9,4 +9,12 @@ export default class Select {
     element.style.display = 'none';
     element.after(this.customElement);
   }
+
+  get selectedOption() {
+    return this.options.find((option) => option.selected);
+  }
+
+  get selectedOptionIndex() {
+    return this.options.indexOf(this.selectedOption);
+  }
 }
