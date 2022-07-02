@@ -71,4 +71,36 @@ export default class Select {
     select.optionsCustomElement.classList.remove("show")
   })
 
+  
+  let debounceTimeout
+  let searchTerm = ""
+  select.customElement.addEventListener("keydown", e => {
+    switch (e.code) {
+      case "Space":
+        select.optionsCustomElement.classList.toggle("show")
+        break
+      case "ArrowUp": {
+        const prevOption = select.options[select.selectedOptionIndex - 1]
+        if (prevOption) {
+          select.selectValue(prevOption.value)
+        }
+        break
+      }
+      case "ArrowDown": {
+        const nextOption = select.options[select.selectedOptionIndex + 1]
+        if (nextOption) {
+          select.selectValue(nextOption.value)
+        }
+        break
+      }
+      case "Enter":
+      case "Escape":
+        select.optionsCustomElement.classList.remove("show")
+        break
+      default: {
+        clearTimeout(debounceTimeout)
+        searchTerm += e.key
+        debounceTimeout = setTimeout(() => {
+          searchTerm = ""
+        }, 500)
 }
